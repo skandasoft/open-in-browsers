@@ -1,0 +1,60 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+@import "octicon-utf-codes";
+.open-in-browsers {
+}
+
+.open-in-browsers span:hover{
+  color: green;
+}
+
+.open-in-browsers span{
+  color: lightgrey;
+  padding: 5px 10px;
+}
+@font-face {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  src: url(atom://open-in-browsers/resources/fontello/font/fontello.woff) format('woff')
+}
+
+.open-in-browsers {
+  font-size: 14px;
+  font-family: 'fontello';
+  display: inline-block;
+  text-decoration: inherit;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* You can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+
+.open-in-browsers .icon-firefox::before { content: '\e800'; } /* '' */
+.open-in-browsers .icon-chrome::before { content: '\e801'; } /* '' */
+.open-in-browsers .icon-opera::before { content: '\e802'; } /* '' */
+.open-in-browsers .icon-ie::before { content: '\e803'; } /* '' */
+.open-in-browsers .octicon-browser::before { content: '\f0c5'; } /* ''  */
