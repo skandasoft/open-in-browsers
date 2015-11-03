@@ -6,12 +6,12 @@
         {
           label: 'Open in BrowserPlus',
           submenu: [
-            {label: 'Open in BrowserPlus', command:  'open-in-browsers:bp'}
-            {label: 'Open in Safari', command:  'open-in-browsers:safari'}
-            {label: 'Open in Opera', command:  'open-in-browsers:opera'}
-            {label: 'Open in FireFox', command:  'open-in-browsers:ff'}
-            {label: 'Open in Chrome', command:  'open-in-browsers:chrome'}
-            {label: 'Open in IE', command:  'open-in-browsers:ie'}
+            {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
+            {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
+            {label: 'Open in Opera', command:  'open-in-browsers:Opera'}
+            {label: 'Open in FireFox', command:  'open-in-browsers:FF'}
+            {label: 'Open in Chrome', command:  'open-in-browsers:Chrome'}
+            {label: 'Open in IE', command:  'open-in-browsers:IE'}
           ]
         }
       ]
@@ -21,12 +21,12 @@
         {
           label: 'Open in BrowserPlus',
           submenu: [
-            {label: 'Open in BrowserPlus', command:  'open-in-browsers:bp'}
-            {label: 'Open in Safari', command:  'open-in-browsers:safari'}
-            {label: 'Open in Opera', command:  'open-in-browsers:opera'}
-            {label: 'Open in FireFox', command:  'open-in-browsers:ff'}
-            {label: 'Open in Chrome', command:  'open-in-browsers:chrome'}
-            {label: 'Open in IE', command:  'open-in-browsers:ie'}
+            {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
+            {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
+            {label: 'Open in Opera', command:  'open-in-browsers:Opera'}
+            {label: 'Open in FireFox', command:  'open-in-browsers:FF'}
+            {label: 'Open in Chrome', command:  'open-in-browsers:Chrome'}
+            {label: 'Open in IE', command:  'open-in-browsers:IE'}
           ]
         }
       ]
