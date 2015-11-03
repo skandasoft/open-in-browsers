@@ -4,7 +4,7 @@
     '.tree-view .file .name[data-name$=".html"]':
       [
         {
-          label: 'Open in BrowserPlus',
+          label: 'Open in Browsers',
           submenu: [
             {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
             {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
@@ -19,7 +19,7 @@
     '.tree-view .file .name[data-name$=".htm"]':
       [
         {
-          label: 'Open in BrowserPlus',
+          label: 'Open in Browsers',
           submenu: [
             {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
             {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
