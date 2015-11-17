@@ -52,7 +52,7 @@ class OpenInBrowsersView extends View
     else
       editor = atom.workspace.getActiveTextEditor()
       fpath = editor.getPath()
-    exec "#{cmd} #{fpath}" if fpath
+    exec "#{cmd} \"#{fpath}\"" if fpath
     return false
 
   # Returns an object that can be retrieved when package is activated
