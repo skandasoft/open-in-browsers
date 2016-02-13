@@ -1,58 +1,92 @@
 {$,View} = require 'atom-space-pen-views'
 exec = require('child_process').exec
-module.exports =
+_ = require 'lodash'
+
 class OpenInBrowsersView extends View
-  initialize: (@model)->
-    @browser = require('./config.coffee').browser[process.platform]
-  @content: ->
-    @span class: 'open-in-browsers', click:'openBrowser', =>
-      if atom.config.get('open-in-browsers.Chrome')
-        @span class:"icon-chrome",click:'openChrome'
-      if atom.config.get('open-in-browsers.IE')
-        @span class:"icon-ie",click:'openIE'
-      if atom.config.get('open-in-browsers.FireFox')
-        @span class:"icon-firefox",click:'openFirefox'
-      if atom.config.get('open-in-browsers.Opera')
-        @span class:"icon-opera",click:'openOpera'
-      if atom.config.get('open-in-browsers.BrowserPlus')
-        @span class:"mega-octicon octicon-browser",click:'openBrowserPlus'
+  initialize: ->
+    @browsers = require('./config.coffee').browser[process.platform]
+    pkgs = atom.packages.getAvailablePackageNames()
+    @pp = _.contains(pkgs,'pp')
+    atom.config.onDidChange 'open-in-browsers.LocalHost',(obj)=>
+      if obj.newValue
+        @children('sup').removeClass('hide')
+      else
+        @children('sup').addClass('hide')
 
-  openChrome: (evt,target)->
-    @open(@browser?.CHROME?.cmd,evt,target)
+  @content: (browsers = atom.config.get('open-in-browsers.browsers'))->
+    localhost = "localhost"
+    browserClass = ''
+    unless atom.config.get('open-in-browsers.LocalHost')
+      localhost += " hide "
+    pkgs = atom.packages.getAvailablePackageNames()
+    @pp = _.contains(pkgs,'pp')
 
-  openIE: (evt,target)->
-    @open(@browser?.IE?.cmd,evt,target)
+    @span class: 'open-in-browsers', =>
+      for browser in browsers
+        if atom.config.get("open-in-browsers.#{browser}")
+          continue if browser is 'BrowserPlus' and @pp and browsers.length > 1
+          if browser is 'BrowserPlus'
+            browserClass = "mega-octicon octicon-browser"
+          else
+            browserClass = "fa #{browser}"
+          if @curBrowser is browser
+            browserClass  =+ " selected "
 
-  openFirefox: (evt,target)->
-    @open(@browser?.FF?.cmd,evt,target)
+          @span class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
+      @sup class:localhost, "L"
 
-  openOpera: (evt,target)->
-    @open(@browser?.OPERA?.cmd,evt,target)
+  openBrowser: (evt,target,browser)->
+    if browser
+      @currBrowser = browser
+    else
+      @currBrowser = target.data('browser') if target.data('browser')
 
-  openBrowser: (evt,target)->
-    @open(@browser?.CHROME?.cmd,evt,target)
+    unless @currBrowser
+      @currBrowser = atom.config.get('defBrowser') or 'chrome'
 
-  openSafari: (evt,target)->
-    @open(@browser?.SAFARI?.cmd,evt,target)
+    @curBrowserCmd = @browsers["#{@currBrowser}"]?.cmd
 
-  openBrowserPlus: (evt,target)->
-    unless atom.packages.getActivePackage('browser-plus')
-      atom.notification.addSuccess('APM Install Browser-Plus to display in browser-plus')
+    @children?().removeClass("selected")
+    @children?(".#{@currBrowser}").addClass('selected')
+    unless @pp
+      @open(@curBrowserCmd,evt,target)
       return
-    view = atom.views.getView(atom.workspace.getActivePaneItem())
-    atom.commands.dispatch(view,'browser-plus:openCurrent') if view
-    return false
+    unless evt
+      @open(@curBrowserCmd,evt,target)
+      return
 
-  open: (cmd,evt,target)->
-    unless cmd
-      alert 'Please maintain browser commands for your OS in config'
-      return false
-    if target?.dataset?.path?
-      fpath = target.dataset.path
+  getFilePath: (target)->
+    return @htmlURL if @htmlURL
+    if target?.dataset?.path
+       fpath = target.dataset.path
     else
       editor = atom.workspace.getActiveTextEditor()
       fpath = editor.getPath()
-    exec "#{cmd} \"#{fpath}\"" if fpath
+    if atom.config.get('open-in-browsers.LocalHost')
+      url = atom.config.get('open-in-browsers.LocalHostURL')
+      pub = atom.config.get('open-in-browsers.PublicFolder')
+      foldr = atom.project.getPaths()[0]
+      if pub and fpath.has pub
+        foldr = foldr + pub
+      fpath = fpath.replace foldr,url
+    else
+      fpath = "file:///#{fpath}"
+
+  open: (cmd = @curBrowserCmd,evt,target)->
+    if @currBrowser is 'BrowserPlus'
+      fpath = @getFilePath()
+      bp = atom.packages.getLoadedPackage('browser-plus')
+      bp.mainModule.open(fpath)
+      return false
+    unless cmd
+      @openBrowser()
+      return false
+    fpath = @getFilePath(target)
+    cmd = "#{cmd} \"#{fpath}\""
+    cmd = cmd.replace '\\', '/'
+    exec  cmd if fpath
+    @selectList?.cancel()
+
     return false
 
   # Returns an object that can be retrieved when package is activated
@@ -64,3 +98,5 @@ class OpenInBrowsersView extends View
 
   getElement: ->
     # @element
+
+module.exports = { OpenInBrowsersView}

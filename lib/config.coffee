@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
     browser:
       title: 'Browser'
       type: 'boolean'
@@ -6,40 +6,46 @@ module.exports =
       win32:
         IE:
           cmd: 'start iexplore '
-        CHROME:
+        Edge:
+          cmd: 'start microsoft-edge '
+        Chrome:
           cmd:  'start chrome '
-        FF:
+        Firefox:
           cmd:  'start firefox '
-        OPERA:
+        Opera:
           cmd: 'start opera '
-        SAFARI:
+        Safari:
           cmd: 'start safari '
       win64:
+        Edge:
+          cmd: 'start microsoft-edge '
         IE:
           cmd: 'start iexplore '
-        CHROME:
+        Chrome:
           cmd:  'start chrome '
-        FF:
+        Firefox:
           cmd:  'start firefox '
-        OPERA:
+        Opera:
           cmd: 'start opera '
-        SAFARI:
+        Safari:
           cmd: 'start safari '
+
       darwin:
-        CHROME:
+        Chrome:
           cmd: 'open -a "Google Chrome" '
-        FF:
+        Firefox:
           cmd: 'open -a "Firefox" '
-        SAFARI:
+        Safari:
           cmd: 'open -a "Safari" '
-        OPERA:
+        Opera:
           cmd: 'open -a "Opera" '
+
       linux:
-        CHROME:
+        Chrome:
           cmd: 'chrome '
-        FF:
+        Firefox:
           cmd: 'firefox '
-        SAFARI:
+        Safari:
           cmd: 'safari '
-        OPERA:
+        Opera:
           cmd: 'opera '

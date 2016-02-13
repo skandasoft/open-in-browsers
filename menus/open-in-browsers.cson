@@ -1,36 +1,5 @@
 # See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
-'context-menu':
-  {
-    '.tree-view .file .name[data-name$=".html"]':
-      [
-        {
-          label: 'Open in Browsers',
-          submenu: [
-            {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
-            {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
-            {label: 'Open in Opera', command:  'open-in-browsers:Opera'}
-            {label: 'Open in FireFox', command:  'open-in-browsers:FF'}
-            {label: 'Open in Chrome', command:  'open-in-browsers:Chrome'}
-            {label: 'Open in IE', command:  'open-in-browsers:IE'}
-          ]
-        }
-      ]
-    ,
-    '.tree-view .file .name[data-name$=".htm"]':
-      [
-        {
-          label: 'Open in Browsers',
-          submenu: [
-            {label: 'Open in BrowserPlus', command:  'open-in-browsers:BP'}
-            {label: 'Open in Safari', command:  'open-in-browsers:Safari'}
-            {label: 'Open in Opera', command:  'open-in-browsers:Opera'}
-            {label: 'Open in FireFox', command:  'open-in-browsers:FF'}
-            {label: 'Open in Chrome', command:  'open-in-browsers:Chrome'}
-            {label: 'Open in IE', command:  'open-in-browsers:IE'}
-          ]
-        }
-      ]
-  }
+
 'menu': [
   {
     'label': 'Packages'

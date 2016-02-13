@@ -2,7 +2,7 @@
   "name": "open-in-browsers",
   "main": "./lib/open-in-browsers",
   "version": "0.0.7",
-  "description": "Open in IE/Chrome/FireFox/Opera",
+  "description": "Open in IE/Chrome/Firefox/Opera",
   "keywords": [
     "open in browser",
     "IE",
@@ -20,9 +20,16 @@
       "versions": {
         "^1.0.0": "consumeStatusBar"
       }
+    },
+    "pp": {
+      "versions": {
+        ">=0.0.0": "consumeAddPreview"
+      }
     }
+
   },
   "dependencies": {
-    "atom-space-pen-views": "^2.0.3"
+    "atom-space-pen-views": "^2.0.3",
+    "lodash": "^3.10.1"
   }
 }

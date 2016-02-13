@@ -3,7 +3,7 @@
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
 @import "ui-variables";
-@import "octicon-utf-codes";
+
 .open-in-browsers {
 }
 
@@ -15,14 +15,35 @@
   color: lightgrey;
   padding: 5px 10px;
 }
+
+.open-in-browsers span.selected{
+  color: yellow
+}
+
 @font-face {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
-  src: url(atom://open-in-browsers/resources/fontello/font/fontello.woff) format('woff')
+  src: url(atom://open-in-browsers/resources/fonts/fontello.woff) format('woff')
 }
 
-.open-in-browsers {
+@font-face {
+  font-family: "FontAwesome";
+  font-style: normal;
+  font-weight: normal;
+  src: url(atom://open-in-browsers/resources/fonts/fontawesome-webfont.woff) format('woff')
+}
+
+.fa {
+  font-family: "FontAwesome";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.octicon-browser {
   font-size: 14px;
   font-family: 'fontello';
   display: inline-block;
@@ -53,8 +74,31 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   }
 
-.open-in-browsers .icon-firefox::before { content: '\e800'; } /* '' */
-.open-in-browsers .icon-chrome::before { content: '\e801'; } /* '' */
-.open-in-browsers .icon-opera::before { content: '\e802'; } /* '' */
-.open-in-browsers .icon-ie::before { content: '\e803'; } /* '' */
-.open-in-browsers .octicon-browser::before { content: '\f0c5'; } /* ''  */
+
+.octicon-browser::before { content: '\f0c5'; } /* ''  */
+
+.Safari::before {
+  .fa; content: "\f267";
+}
+.Chrome::before {
+  .fa; content: "\f268";
+}
+.Firefox::before {
+  .fa; content: "\f269";
+}
+.Opera::before {
+  .fa; content: "\f26a";
+}
+.IE::before {
+  .fa; content: "\f26b";
+}
+.Edge:before {
+    content: "\f282";
+}
+.hide{
+  display: none;
+}
+.localhost{
+  font-weight: bolder;
+  font-size: 100%;
+}
