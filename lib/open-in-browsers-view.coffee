@@ -39,10 +39,10 @@ class OpenInBrowsersView extends View
     if browser
       @currBrowser = browser
     else
-      @currBrowser = target.data('browser') if target.data('browser')
+      @currBrowser = target.data('browser') if target?.data?('browser')
 
     unless @currBrowser
-      @currBrowser = atom.config.get('defBrowser') or 'chrome'
+      @currBrowser = atom.config.get('defBrowser') or 'Chrome'
 
     @curBrowserCmd = @browsers["#{@currBrowser}"]?.cmd
 
