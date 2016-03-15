@@ -61,6 +61,7 @@ class OpenInBrowsersView extends View
        fpath = target.dataset.path
     else
       editor = atom.workspace.getActiveTextEditor()
+      return unless editor
       fpath = editor.getPath()
     if atom.config.get('open-in-browsers.LocalHost')
       url = atom.config.get('open-in-browsers.LocalHostURL')

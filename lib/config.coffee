@@ -7,7 +7,7 @@ module.exports =
         IE:
           cmd: 'start iexplore '
         Edge:
-          cmd: 'start microsoft-edge '
+          cmd: 'start microsoft-edge: '
         Chrome:
           cmd:  'start chrome '
         Firefox:
@@ -42,7 +42,7 @@ module.exports =
 
       linux:
         Chrome:
-          cmd: 'chrome '
+          cmd: 'google-chrome '
         Firefox:
           cmd: 'firefox '
         Safari:
