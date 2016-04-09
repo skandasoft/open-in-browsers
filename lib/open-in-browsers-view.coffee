@@ -1,5 +1,4 @@
-{$,View} = require 'atom-space-pen-views'
-exec = require('child_process').exec
+{View} = require 'atom-space-pen-views'
 _ = require 'lodash'
 
 class OpenInBrowsersView extends View
@@ -74,6 +73,7 @@ class OpenInBrowsersView extends View
       fpath = "file:///#{fpath}"
 
   open: (cmd = @curBrowserCmd,evt,target)->
+    exec = require('child_process').exec
     if @currBrowser is 'BrowserPlus'
       fpath = @getFilePath()
       bp = atom.packages.getLoadedPackage('browser-plus')

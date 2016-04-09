@@ -1,8 +1,4 @@
-{OpenInBrowsersView,OpenInBrowserPlusView} = require './open-in-browsers-view'
-{CompositeDisposable} = require 'atom'
-path = require 'path'
-_ = require 'lodash'
-
+{OpenInBrowsersView} = require './open-in-browsers-view'
 module.exports = OpenInBrowsers =
   openInBrowsersView: null
   subscriptions: null
@@ -126,6 +122,7 @@ module.exports = OpenInBrowsers =
     @ids = @addPreview requires
 
   activate: (state) ->
+    {CompositeDisposable} = require 'atom'
     @openInBrowsersView = new OpenInBrowsersView()
       # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -155,12 +152,14 @@ module.exports = OpenInBrowsers =
 
 
     atom.workspace.onDidChangeActivePaneItem (activePane)=>
+      _ = require 'lodash'
       pkgs = atom.packages.getAvailablePackageNames()
       unless _.contains(pkgs,'pp')
         @updateStatusBar(activePane)
         activePane?.onDidChangeTitle?  => @updateStatusBar()
 
   consumeStatusBar: (@statusBar)->
+      _ = require 'lodash'
       pkgs = atom.packages.getAvailablePackageNames()
       unless _.contains(pkgs,'pp')
         @openInBrowsersView or= new OpenInBrowsersView()
@@ -169,6 +168,7 @@ module.exports = OpenInBrowsers =
         return "</span>"
 
   updateStatusBar: (editor = atom.workspace.getActivePaneItem())->
+    path = require 'path'
     filePath = editor?.buffer?.file?.path
     if filePath and path.extname(filePath).substr(1) in atom.config.get('open-in-browsers').fileTypes
       @browserBar = @statusBar.addLeftTile item: @openInBrowsersView, priority:100
