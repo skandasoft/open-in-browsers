@@ -7,15 +7,21 @@ module.exports =
         IE:
           cmd: 'start iexplore '
         Edge:
-          cmd: 'start microsoft-edge: '
+          cmd: 'start microsoft-edge '
         Chrome:
           cmd:  'start chrome '
+        ChromePortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.ChromePortablePath') + ' '
         Firefox:
           cmd:  'start firefox '
+        FirefoxPortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.FirefoxPortablePath') + ' '
         Opera:
           cmd: 'start opera '
         Safari:
           cmd: 'start safari '
+        SafariPortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortablePath') + ' '
       win64:
         Edge:
           cmd: 'start microsoft-edge '
@@ -23,12 +29,18 @@ module.exports =
           cmd: 'start iexplore '
         Chrome:
           cmd:  'start chrome '
+        ChromePortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.ChromePortablePath') + ' '
         Firefox:
           cmd:  'start firefox '
+        FirefoxPortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.FirefoxPortablePath') + ' '
         Opera:
           cmd: 'start opera '
         Safari:
           cmd: 'start safari '
+        SafariPortable:
+          cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortablePath') + ' '
 
       darwin:
         Chrome:
