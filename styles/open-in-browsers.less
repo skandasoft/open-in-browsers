@@ -11,6 +11,12 @@
   color: green;
 }
 
+.FirefoxPortable:hover,
+.ChromePortable:hover,
+.SafariPortable:hover {
+  color: #17CA65 !important;
+}
+
 .open-in-browsers span{
   color: lightgrey;
   padding: 5px 10px;
@@ -77,13 +83,16 @@
 
 .octicon-browser::before { content: '\f0c5'; } /* ''  */
 
-.Safari::before {
+.Safari::before,
+.SafariPortable::before {
   .fa; content: "\f267";
 }
-.Chrome::before {
+.Chrome::before,
+.ChromePortable::before {
   .fa; content: "\f268";
 }
-.Firefox::before {
+.Firefox::before,
+.FirefoxPortable::before {
   .fa; content: "\f269";
 }
 .Opera::before {
