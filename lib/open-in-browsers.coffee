@@ -32,7 +32,7 @@ module.exports = OpenInBrowsers =
     ChromePortable:
       title: 'Chrome Portable'
       type: 'boolean'
-      default: true
+      default: false
     ChromePortablePath:
       title: 'Chrome Portable Path'
       type: 'string'
@@ -44,7 +44,7 @@ module.exports = OpenInBrowsers =
     FirefoxPortable:
       title: 'Firefox Portable'
       type: 'boolean'
-      default: true
+      default: false
     FirefoxPortablePath:
       title: 'Firefox Portable Path'
       type: 'string'
@@ -60,8 +60,8 @@ module.exports = OpenInBrowsers =
     SafariPortable:
       title: 'Safari Portable'
       type: 'boolean'
-      default: true
-    SafariPortablePath:
+      default: false
+    SafariPortable:
       title: 'Safari Portable Path'
       type: 'string'
       default: ''
@@ -72,7 +72,7 @@ module.exports = OpenInBrowsers =
     LocalHost:
       title: 'Switch LocalHost'
       type: 'boolean'
-      default: true
+      default: false
     LocalHostURL:
       title: 'LocalHost URL'
       type: 'string'
@@ -98,7 +98,10 @@ module.exports = OpenInBrowsers =
           unless atom.packages.getActivePackage('browser-plus')
             atom.notifications.addSuccess('APM Install Browser-Plus to display in browser-plus')
             return
-          pp = atom.packages.getLoadedPackage('pp')
+          unless  pp = atom.packages.getLoadedPackage('pp')
+            atom.notifications.addSuccess('APM Install PP(Preview-Plus) to display in browser-plus')
+            return
+
           if options.url
             pp.mainModule.bp.open(options.url)
             return false
