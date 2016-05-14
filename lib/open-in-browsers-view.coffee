@@ -30,7 +30,7 @@ class OpenInBrowsersView extends View
             browserClass = "fa #{browser}"
           if @curBrowser is browser
             browserClass  =+ " selected "
-            
+
           unless atom.config.get("open-in-browsers.#{browser}Path") != ''
             browserClass += " hide "
 
@@ -74,6 +74,7 @@ class OpenInBrowsersView extends View
       fpath = fpath.replace foldr,url
     else
       fpath = "file:///#{fpath}"
+    fpath.replace(/\\/g,'/')
 
   open: (cmd = @curBrowserCmd,evt,target)->
     exec = require('child_process').exec
@@ -87,7 +88,7 @@ class OpenInBrowsersView extends View
       return false
     fpath = @getFilePath(target)
     cmd = "#{cmd} \"#{fpath}\""
-    cmd = cmd.replace "/\\/g", '/'
+    #cmd = cmd.replace "/\\/g", '/'
     exec  cmd if fpath
     @selectList?.cancel()
 

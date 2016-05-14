@@ -70,7 +70,7 @@ module.exports = OpenInBrowsers =
       type: 'boolean'
       default: true
     LocalHost:
-      title: 'Switch LocalHost'
+      title: 'Switch to LocalHost'
       type: 'boolean'
       default: false
     LocalHostURL:
