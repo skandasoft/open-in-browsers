@@ -6,7 +6,7 @@ module.exports = OpenInBrowsers =
     browsers:
       title: 'List of Browsers'
       type: 'array'
-      default: [ 'IE', 'Edge','Chrome', 'Firefox', 'Opera', 'Safari','BrowserPlus' ]
+      default: [ 'IE', 'Edge', 'Chrome', 'ChromePortable', 'Firefox', 'FirefoxPortable', 'Opera', 'Safari', 'SafariPortable', 'BrowserPlus' ]
 
     defBrowser:
       title: 'Default Browser'
@@ -22,17 +22,33 @@ module.exports = OpenInBrowsers =
       type: 'boolean'
       default: true
     Edge:
-      title: 'IE'
+      title: 'Edge'
       type: 'boolean'
       default: false
     Chrome:
       title: 'Chrome'
       type: 'boolean'
       default: true
+    ChromePortable:
+      title: 'Chrome Portable'
+      type: 'boolean'
+      default: true
+    ChromePortablePath:
+      title: 'Chrome Portable Path'
+      type: 'string'
+      default: ''
     Firefox:
       title: 'Firefox'
       type: 'boolean'
       default: true
+    FirefoxPortable:
+      title: 'Firefox Portable'
+      type: 'boolean'
+      default: true
+    FirefoxPortablePath:
+      title: 'Firefox Portable Path'
+      type: 'string'
+      default: ''
     Opera:
       title: 'Opera'
       type: 'boolean'
@@ -41,6 +57,14 @@ module.exports = OpenInBrowsers =
       title: 'Safari'
       type: 'boolean'
       default: true
+    SafariPortable:
+      title: 'Safari Portable'
+      type: 'boolean'
+      default: true
+    SafariPortablePath:
+      title: 'Safari Portable Path'
+      type: 'string'
+      default: ''
     BrowserPlus:
       title: 'Browser Plus'
       type: 'boolean'
