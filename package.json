@@ -1,7 +1,7 @@
 {
   "name": "open-in-browsers",
   "main": "./lib/open-in-browsers",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Open in IE/Chrome/Firefox/Opera",
   "keywords": [
     "open in browser",
