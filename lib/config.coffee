@@ -7,7 +7,7 @@ module.exports =
         IE:
           cmd: 'start iexplore '
         Edge:
-          cmd: 'start microsoft-edge '
+          cmd: 'start microsoft-edge:'
         Chrome:
           cmd:  'start chrome '
         ChromePortable:
@@ -24,7 +24,7 @@ module.exports =
           cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortablePath') + ' '
       win64:
         Edge:
-          cmd: 'start microsoft-edge '
+          cmd: 'start microsoft-edge:'
         IE:
           cmd: 'start iexplore '
         Chrome:
