@@ -87,7 +87,7 @@ class OpenInBrowsersView extends View
       @openBrowser()
       return false
     fpath = @getFilePath(target)
-    cmd = "#{cmd} \"#{fpath}\""
+    cmd = "#{cmd}\"#{fpath}\""
     #cmd = cmd.replace "/\\/g", '/'
     exec  cmd if fpath
     @selectList?.cancel()

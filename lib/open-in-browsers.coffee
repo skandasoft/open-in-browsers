@@ -11,7 +11,8 @@ module.exports = OpenInBrowsers =
     defBrowser:
       title: 'Default Browser'
       type: 'string'
-      default: ['Chrome']
+      default: 'Chrome'
+      enum: [ 'IE', 'Edge', 'Chrome', 'ChromePortable', 'Firefox', 'FirefoxPortable', 'Opera', 'Safari', 'SafariPortable', 'BrowserPlus']
 
     fileTypes:
       title: 'HTML File Types'
