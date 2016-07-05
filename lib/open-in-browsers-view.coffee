@@ -62,24 +62,18 @@ class OpenInBrowsersView extends View
     if target?.dataset?.path
        fpath = target.dataset.path
     else
-      editor = atom.workspace.getActiveTextEditor()
-      return unless editor
-      fpath = editor.getPath()
-    if atom.config.get('open-in-browsers.LocalHost')
-      url = atom.config.get('open-in-browsers.LocalHostURL')
-      pub = atom.config.get('open-in-browsers.PublicFolder')
-      foldr = atom.project.getPaths()[0]
-      if pub and fpath.has pub
-        foldr = foldr + pub
-      fpath = fpath.replace foldr,url
-    else
-      fpath = "file:///#{fpath}"
-    fpath.replace(/\\/g,'/')
+      unless @fileName
+        editor = atom.workspace.getActiveTextEditor()
+        return unless editor
+        fpath = editor.getPath()
+      else
+        fpath = @fileName
+    OpenInBrowsersView.getFilePath(fpath)
 
   open: (cmd = @curBrowserCmd,evt,target)->
     exec = require('child_process').exec
     if @currBrowser is 'BrowserPlus'
-      fpath = @getFilePath()
+      fpath = @getFilePath(target)
       bp = atom.packages.getLoadedPackage('browser-plus')
       bp.mainModule.open(fpath)
       return false
@@ -103,5 +97,30 @@ class OpenInBrowsersView extends View
 
   getElement: ->
     # @element
+
+  @getFilePath: (fpath)->
+    fpath = fpath.replace(/\\/g,'/')
+    if atom.config.get('open-in-browsers.LocalHost')
+      url = atom.config.get('open-in-browsers.LocalHostURL')
+      pub = atom.config.get('open-in-browsers.PublicFolder')
+    reqr = atom.config.get('open-in-browsers.project')
+    project = require (reqr) if reqr
+
+    foldr = atom.project.getPaths()[0]
+    foldr = foldr.replace(/\\/g,'/')
+
+    if project and folder = project[foldr]
+      url = folder['url']
+      pub = folder['public']
+
+
+    if pub and fpath.includes pub
+      foldr = foldr + "/"+pub
+    if url
+      url = url.replace(/\\/g,'/')
+      fpath = fpath.replace foldr,url
+    else
+      fpath = "file:///#{fpath}"
+
 
 module.exports = { OpenInBrowsersView}

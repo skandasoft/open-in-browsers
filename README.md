@@ -8,3 +8,6 @@ Opening Browsers are available in the status bar/context menu
 
 Browser List in context menu
 ![open-in-browsers](https://raw.github.com/skandasoft/open-in-browsers/master/Context-Menu.PNG)
+
+Update: Ability to New Browsers
+  command open-in-browsers:addBrowser

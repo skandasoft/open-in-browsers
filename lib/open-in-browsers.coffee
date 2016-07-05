@@ -1,8 +1,11 @@
+{CompositeDisposable} = require 'atom'
 {OpenInBrowsersView} = require './open-in-browsers-view'
+
 module.exports = OpenInBrowsers =
   openInBrowsersView: null
   subscriptions: null
   config:
+
     browsers:
       title: 'List of Browsers'
       type: 'array'
@@ -78,6 +81,22 @@ module.exports = OpenInBrowsers =
       title: 'LocalHost URL'
       type: 'string'
       default: 'http://localhost:3000'
+    project:
+      title: 'Project/Local Host Combination Config File'
+      type: 'string'
+      default: '../project'
+
+  getPosition: ->
+    activePane = atom.workspace.paneForItem atom.workspace.getActiveTextEditor()
+    return unless activePane
+    paneAxis = activePane.getParent()
+    return unless paneAxis
+    paneIndex = paneAxis.getPanes().indexOf(activePane)
+    orientation = paneAxis.orientation ? 'horizontal'
+    if orientation is 'horizontal'
+      if  paneIndex is 0 then 'right' else 'left'
+    else
+      if  paneIndex is 0 then 'down' else 'up'
 
   consumeAddPreview: (@addPreview)->
     requires =
@@ -104,41 +123,41 @@ module.exports = OpenInBrowsers =
             return
 
           if options.url
-            pp.mainModule.bp.open(options.url)
+            atom.workspace.open options.url, {searchAllPanes:true}
             return false
           else
-            if quickPreview or hyperLive
-              lines = src.split('\n')
-              src = lines.join('<br/>')
-              html = """
-                <pre style="word-wrap: break-word; white-space: pre-wrap;">
-                #{src}
-                </pre>
-                """
-              pp.mainModule.bp.open(null,html)
-              return false
+            fpath = OpenInBrowsersView.getFilePath(fileName)
+            editor = atom.workspace.paneForURI(fpath)?.activeItem
+            unless editor
+              fpath = fpath.replace(/\\/g,"/")
+              editor = atom.workspace.paneForURI(fpath)?.activeItem
+            split = module.exports.getPosition()
+            if quickPreview or hyperLive or fileName.indexOf "~pp~"
+              # src = src.split('\n').join('<br/>')
+              # src = """
+              #   <pre style="word-wrap: break-word; white-space: pre-wrap;">
+              #   #{src}
+              #   </pre>
+              #   """
+              if editor
+                editor.setText(src)
+              else
+                atom.workspace.open fpath, {src,split}
             else
               if target?.dataset?.path?
                 fpath = target.dataset.path
+              if editor
+                editor.setText('')
+                editor.refresh()
               else
-                if atom.config.get('open-in-browsers.LocalHost')
-                  url = atom.config.get('open-in-browsers.LocalHostURL')
-                  pub = atom.config.get('open-in-browsers.PublicFolder')
-                  foldr = atom.project.getPaths()[0]
-                  if pub and fileName.has pub
-                    foldr = foldr + pub
-                  fpath = fileName.replace foldr,url
-                else
-                  fpath = "file:///#{fileName}"
-
-              pp.mainModule.bp.open(fpath)
-              return false
+                atom.workspace.open fpath,{split}
+            return false
 
       # localhost:
       #
       browsers:
         noPreview: true
-        hyperLive: true
+        hyperLive: false
         quickPreview: false
         viewClass: OpenInBrowsersView
         exe: (src,options,data,fileName,quickPreview,hyperLive,editor,view)->
@@ -146,16 +165,32 @@ module.exports = OpenInBrowsers =
             @vw.htmlURL = options['url']
           else
             @vw.htmlURL = undefined
+          @vw.fileName = fileName
           @vw.open()
     @ids = @addPreview requires
 
   activate: (state) ->
-    {CompositeDisposable} = require 'atom'
+    # bring back to life new browsers added
+    # if atom.config.get('open-in-browsers.requires')
+      # req = require atom.config.get('open-in-browsers.requires')
+      # for key,val of req.config
+      #   properties = atom.config.getSchema('open-in-browsers').properties
+      #   if properties[key]
+      #     properties.enum.concat val
+      #   else
+      #     properties[key] = {}
+      #     properties[key]['default'] = val
+      #     properties[key]['type'] = 'string'
+      #     properties[key]['title'] = key
+
     @openInBrowsersView = new OpenInBrowsersView()
       # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
     submenu = []
     # Register command that toggles this view
+    @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:addBrowser': (target)=>
+      # open input view for browser name/command/default
+
     @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:toggle': (target)=>
       @openInBrowsersView.openBrowser(null,target)
     browsers = atom.config.get('open-in-browsers.browsers')
