@@ -121,17 +121,16 @@ module.exports = OpenInBrowsers =
           unless  pp = atom.packages.getLoadedPackage('pp')
             atom.notifications.addSuccess('APM Install PP(Preview-Plus) to display in browser-plus')
             return
-
+          split = module.exports.getPosition()
           if options.url
-            atom.workspace.open options.url, {searchAllPanes:true}
+            atom.workspace.open options.url, {searchAllPanes:true,split:split}
             return false
           else
             fpath = OpenInBrowsersView.getFilePath(fileName)
-            editor = atom.workspace.paneForURI(fpath)?.activeItem
+            editor = atom.workspace.paneForURI(fpath)?.getItems()?.find (pane)-> pane.getURI() is fpath
             unless editor
               fpath = fpath.replace(/\\/g,"/")
-              editor = atom.workspace.paneForURI(fpath)?.activeItem
-            split = module.exports.getPosition()
+              editor = atom.workspace.paneForURI(fpath)?.getItems()?.find (pane)-> pane.getURI() is fpath
             if quickPreview or hyperLive or fileName.indexOf "~pp~"
               # src = src.split('\n').join('<br/>')
               # src = """
