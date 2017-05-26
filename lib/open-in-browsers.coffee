@@ -187,7 +187,7 @@ module.exports = OpenInBrowsers =
     @subscriptions = new CompositeDisposable
     submenu = []
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:addBrowser': (target)=>
+    # @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:addBrowser': (target)=>
       # open input view for browser name/command/default
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:toggle': (target)=>

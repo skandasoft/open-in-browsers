@@ -9,5 +9,14 @@ Opening Browsers are available in the status bar/context menu
 Browser List in context menu
 ![open-in-browsers](https://raw.github.com/skandasoft/open-in-browsers/master/Context-Menu.PNG)
 
-Update: Ability to New Browsers
+Update: Ability to add New Browsers
   command open-in-browsers:addBrowser
+
+
+Update: 05/25/2017  
+open-in-browsers:addBrowser - removed the command. as it makes the package complicated.
+
+Adding new browsers can be done by PR(Pull Request).
+Check the lib/config.coffee and send the cmd needed for opening the browser. I can also add if you send me the details of browsers/cmd
+
+microsoft-edge doesn't yet allow opening file system files..Once then allow it will start to work automatically.
