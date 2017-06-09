@@ -1,11 +1,18 @@
 {View} = require 'atom-space-pen-views'
-# _ = require 'lodash'
+{CompositeDisposable}  = require 'atom'
 
 class OpenInBrowsersView extends View
+  constructor: ->
+    @subscriptions = new CompositeDisposable
+    super
+
   initialize: ->
     @browsers = require('./config.coffee').browser[process.platform]
-    pkgs = atom.packages.getAvailablePackageNames()
-    # @pp = _.contains(pkgs,'pp')
+    browserList = atom.config.get('open-in-browsers.browsers')
+    for browser in browserList
+      title = @[browser]?.attr?('title')
+      @subscriptions.add atom.tooltips.add(@[browser],{title:title}) if title
+
     atom.config.onDidChange 'open-in-browsers.LocalHost',(obj)=>
       if obj.newValue
         @children('sup').removeClass('hide')
@@ -38,10 +45,12 @@ class OpenInBrowsersView extends View
             else
               color = atom.config.get("open-in-browsers.#{browser}.color")
               style = "color: rgb(#{color.red}, #{color.green}, #{color.blue});"
-              tooltip = atom.config.get("open-in-browsers.#{browser}.tooltip")
-              @span style:"#{style}", title:"#{tooltip}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
+              title = atom.config.get("open-in-browsers.#{browser}.tooltip")
+              @span style:"#{style}", title:"#{title}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
           else
-            @span title:"#{browser}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
+            title = browser
+            @span title:"#{browser}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser',outlet:"#{browser}"
+
       @sup class:localhost, "L"
 
   openBrowser: (evt,target,browser)->
@@ -82,8 +91,6 @@ class OpenInBrowsersView extends View
     if @currBrowser is 'BrowserPlus'
       fpath = @getFilePath(target)
       atom.workspace.open(fpath)
-      # bp = atom.packages.getLoadedPackage('browser-plus')
-      # bp.mainModule.open(fpath)
       return false
     unless cmd
       @openBrowser()
@@ -102,7 +109,7 @@ class OpenInBrowsersView extends View
   # Tear down any state and detach
   destroy: ->
     # @element.remove()
-
+    @subscriptions.dispose()
   getElement: ->
     # @element
 
@@ -129,6 +136,5 @@ class OpenInBrowsersView extends View
       fpath = fpath.replace foldr,url
     else
       fpath = "file:///#{fpath}"
-
 
 module.exports = { OpenInBrowsersView}
