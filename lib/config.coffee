@@ -11,17 +11,17 @@ module.exports =
         Chrome:
           cmd:  'start chrome '
         ChromePortable:
-          cmd:  'start ' + atom.config.get('open-in-browsers.ChromePortablePath') + ' '
+          cmd:  'start ' + atom.config.get("open-in-browsers.ChromePortable.path") + ' '
         Firefox:
           cmd:  'start firefox '
         FirefoxPortable:
-          cmd:  'start ' + atom.config.get('open-in-browsers.FirefoxPortablePath') + ' '
+          cmd:  'start ' + atom.config.get('open-in-browsers.FirefoxPortable.path') + ' '
         Opera:
           cmd: 'start opera '
         Safari:
           cmd: 'start safari '
         SafariPortable:
-          cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortablePath') + ' '
+          cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortable.path') + ' '
       win64:
         Edge:
           cmd: 'start microsoft-edge:'

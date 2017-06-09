@@ -1,11 +1,11 @@
 {View} = require 'atom-space-pen-views'
-_ = require 'lodash'
+# _ = require 'lodash'
 
 class OpenInBrowsersView extends View
   initialize: ->
     @browsers = require('./config.coffee').browser[process.platform]
     pkgs = atom.packages.getAvailablePackageNames()
-    @pp = _.contains(pkgs,'pp')
+    # @pp = _.contains(pkgs,'pp')
     atom.config.onDidChange 'open-in-browsers.LocalHost',(obj)=>
       if obj.newValue
         @children('sup').removeClass('hide')
@@ -18,11 +18,12 @@ class OpenInBrowsersView extends View
     unless atom.config.get('open-in-browsers.LocalHost')
       localhost += " hide "
     pkgs = atom.packages.getAvailablePackageNames()
-    @pp = _.contains(pkgs,'pp')
-
+    @pp = !!~pkgs.indexOf('pp')
+    @bp = !!~pkgs.indexOf('browser-plus')
     @span class: 'open-in-browsers', =>
       for browser in browsers
         if atom.config.get("open-in-browsers.#{browser}")
+          continue if browser is 'BrowserPlus' and not @bp
           continue if browser is 'BrowserPlus' and @pp and browsers.length > 1
           if browser is 'BrowserPlus'
             browserClass = "mega-octicon octicon-browser"
@@ -31,10 +32,16 @@ class OpenInBrowsersView extends View
           if @curBrowser is browser
             browserClass  =+ " selected "
 
-          unless atom.config.get("open-in-browsers.#{browser}Path") != ''
-            browserClass += " hide "
-
-          @span class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
+          if typeof atom.config.get("open-in-browsers.#{browser}") is "object"
+            if atom.config.get("open-in-browsers.#{browser}.path").trim() is ''
+              browserClass += " hide "
+            else
+              color = atom.config.get("open-in-browsers.#{browser}.color")
+              style = "color: rgb(#{color.red}, #{color.green}, #{color.blue});"
+              tooltip = atom.config.get("open-in-browsers.#{browser}.tooltip")
+              @span style:"#{style}", title:"#{tooltip}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
+          else
+            @span title:"#{browser}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser'
       @sup class:localhost, "L"
 
   openBrowser: (evt,target,browser)->
