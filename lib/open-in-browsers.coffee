@@ -62,7 +62,8 @@ module.exports = OpenInBrowsers =
       properties:
         path:
           type: 'string'
-          default: 'C:\\Users\\Admin\\AppData\\Local\\Google\\"Chrome SxS"\\Application\\chrome.exe'
+          default: ''
+          description: 'eg. C:\\Users\\Admin\\AppData\\Local\\Google\\"Chrome SxS"\\Application\\chrome.exe'
         tooltip:
           type: 'string'
           default : 'Chrome Canary'
@@ -228,7 +229,8 @@ module.exports = OpenInBrowsers =
             atom.commands.add 'atom-workspace', "open-in-browsers:#{browser}", do(browser) =>
               return ({target}) =>
                 @openInBrowsersView.openBrowser(null,target,browser)
-            submenu.push {label: "Open in #{browser}", command:  "open-in-browsers:#{browser}"}
+            title = atom.config.get("open-in-browsers.#{browser}").tooltip or browser
+            submenu.push {label: "Open in #{title}", command:  "open-in-browsers:#{browser}"}
 
     for fileType in atom.config.get('open-in-browsers.fileTypes')
       sel = {}

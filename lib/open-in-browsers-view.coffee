@@ -66,8 +66,8 @@ class OpenInBrowsersView extends View
 
   getFilePath: (target)->
     return @htmlURL if @htmlURL
-    if target?.dataset?.path
-       fpath = target.dataset.path
+    if target
+       fpath = target.closest('.entry').getPath()
     else
       unless @fileName
         editor = atom.workspace.getActiveTextEditor()
