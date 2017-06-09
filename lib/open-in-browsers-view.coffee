@@ -67,7 +67,7 @@ class OpenInBrowsersView extends View
   getFilePath: (target)->
     return @htmlURL if @htmlURL
     if target
-       fpath = target.closest('.entry')?.getPath?()
+       fpath = target.closest?('.entry')?.getPath?()
     unless fpath
       unless @fileName
         editor = atom.workspace.getActiveTextEditor()
@@ -81,8 +81,9 @@ class OpenInBrowsersView extends View
     exec = require('child_process').exec
     if @currBrowser is 'BrowserPlus'
       fpath = @getFilePath(target)
-      bp = atom.packages.getLoadedPackage('browser-plus')
-      bp.mainModule.open(fpath)
+      atom.workspace.open(fpath)
+      # bp = atom.packages.getLoadedPackage('browser-plus')
+      # bp.mainModule.open(fpath)
       return false
     unless cmd
       @openBrowser()

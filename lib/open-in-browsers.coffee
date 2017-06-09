@@ -246,20 +246,22 @@ module.exports = OpenInBrowsers =
 
 
     atom.workspace.onDidChangeActivePaneItem (activePane)=>
-      _ = require 'lodash'
-      pkgs = atom.packages.getAvailablePackageNames()
-      unless _.contains(pkgs,'pp')
+      if @pp is undefined
+        pkgs = atom.packages.getAvailablePackageNames()
+        @pp = !!~pkgs.indexOf('pp')
+      unless @pp
         @updateStatusBar(activePane)
         activePane?.onDidChangeTitle?  => @updateStatusBar()
 
   consumeStatusBar: (@statusBar)->
-      _ = require 'lodash'
-      pkgs = atom.packages.getAvailablePackageNames()
-      unless _.contains(pkgs,'pp')
+      if @pp is undefined
+        pkgs = atom.packages.getAvailablePackageNames()
+        @pp = !!~pkgs.indexOf('pp')
+      if @pp
+        return "</span>"
+      else
         @openInBrowsersView or= new OpenInBrowsersView()
         @updateStatusBar()
-      else
-        return "</span>"
 
   updateStatusBar: (editor = atom.workspace.getActivePaneItem())->
     path = require 'path'
