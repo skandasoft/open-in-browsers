@@ -26,9 +26,11 @@
         ">=0.0.0": "consumeAddPreview"
       }
     }
+
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "load-json-file": "^2.0.0"
   }
 }

@@ -99,20 +99,11 @@ module.exports = OpenInBrowsers =
           type: 'color'
           default: 'green'
 
-    LocalHost:
-      title: 'Switch to LocalHost'
-      type: 'boolean'
-      default: false
-
-    LocalHostURL:
-      title: 'LocalHost URL'
-      type: 'string'
-      default: 'http://localhost:3000'
-
     project:
       title: 'Project/Local Host Combination Config File'
       type: 'string'
-      default: '../project'
+      description: 'contains the url and home folder'
+      default: 'proj.json'
 
   getPosition: ->
     activePane = atom.workspace.paneForItem atom.workspace.getActiveTextEditor()

@@ -114,27 +114,26 @@ class OpenInBrowsersView extends View
     # @element
 
   @getFilePath: (fpath)->
+    # order of the acceptance
+    # 1. setting for localhost
+    # 2. project
+    # 3. filepath - what ever is passed
+    projectPath = atom.project.getPaths()[0]?.replace(/\\/g,'/')
     fpath = fpath.replace(/\\/g,'/')
-    if atom.config.get('open-in-browsers.LocalHost')
-      url = atom.config.get('open-in-browsers.LocalHostURL')
-      pub = atom.config.get('open-in-browsers.PublicFolder')
-    reqr = atom.config.get('open-in-browsers.project')
-    project = require (reqr) if reqr
 
-    foldr = atom.project.getPaths()[0]
-    foldr = foldr.replace(/\\/g,'/')
-
-    if project and folder = project[foldr]
-      url = folder['url']
-      pub = folder['public']
-
-
-    if pub and fpath.includes pub
-      foldr = foldr + "/"+pub
-    if url
-      url = url.replace(/\\/g,'/')
-      fpath = fpath.replace foldr,url
-    else
+    loadJson = require('load-json-file')
+    try
+      projFile = atom.config.get("open-in-browsers.project") or "proj.json"
+      proj = loadJson.sync("#{projectPath}/#{projFile}")
+      if(proj)
+        url = proj.localhost.url
+        folder = (proj.localhost.folder)?.replace(/\\/g,'/')
+        if folder and fpath.startsWith(folder) and fpath.indexOf(folder) >= 0
+          fpath = fpath.replace(folder,url)
+        else
+          fpath = "#{url}/#{fpath}" if url
+      else
+        fpath = "file:///#{fpath}"
+    catch e
       fpath = "file:///#{fpath}"
-
 module.exports = { OpenInBrowsersView}
