@@ -2,23 +2,18 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
-@import "ui-variables";
+
+@import "octicon-utf-codes";
 
 .open-in-browsers {
 }
 
 .open-in-browsers span:hover{
   color: green;
-}
-
-.FirefoxPortable:hover,
-.ChromePortable:hover,
-.SafariPortable:hover {
-  color: #17CA65 !important;
+  font-size: large;
 }
 
 .open-in-browsers span{
-  color: lightgrey;
   padding: 5px 10px;
 }
 
@@ -28,18 +23,12 @@
 }
 
 @font-face {
-  font-family: "fontello";
-  font-style: normal;
-  font-weight: normal;
-  src: url(atom://open-in-browsers/resources/fonts/fontello.woff) format('woff')
-}
-
-@font-face {
   font-family: "FontAwesome";
   font-style: normal;
   font-weight: normal;
   src: url(atom://open-in-browsers/resources/fonts/fontawesome-webfont.woff) format('woff')
 }
+
 
 .fa {
   font-family: "FontAwesome";
@@ -50,41 +39,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.octicon-browser {
-  font-size: 14px;
-  font-family: 'fontello';
-  display: inline-block;
-  text-decoration: inherit;
-  margin-right: .2em;
-  text-align: center;
-  /* opacity: .8; */
-
-  /* For safety - reset parent styles, that can break glyph codes*/
-  font-variant: normal;
-  text-transform: none;
-
-  /* fix buttons height, for twitter bootstrap */
-  line-height: 1em;
-
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
-  margin-left: .2em;
-
-  /* You can be more comfortable with increased icons size */
-  /* font-size: 120%; */
-
-  /* Font smoothing. That was taken from TWBS */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  }
 
 
-.octicon-browser::before { content: '\f0c5'; } /* ''  */
+.browser-plus-icon::before {
+  font-family: "Octicons Regular";
+  content: @browser;
+}
 
-.Safari::before,
 .SafariPortable::before {
   .fa; content: "\f267";
 }
@@ -102,13 +63,9 @@
 .IE::before {
   .fa; content: "\f26b";
 }
-.Edge:before {
+.Edge::before {
     content: "\f282";
 }
 .hide{
   display: none;
-}
-.localhost{
-  font-weight: bolder;
-  font-size: 100%;
 }

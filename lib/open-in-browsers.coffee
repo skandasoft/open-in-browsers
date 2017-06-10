@@ -126,9 +126,9 @@ module.exports = OpenInBrowsers =
       browser:
         noPreview: true
         hyperLive: ->
-          if atom.config.get('open-in-browsers.LocalHost')
-            atom.notifications.addSuccess('Live Not Availble for LocalHost')
-            return false
+          # if false
+          #   atom.notifications.addSuccess('Live Not Availble')
+          #   return false
           return true
         quickPreview: true
         viewClass: OpenInBrowsersView

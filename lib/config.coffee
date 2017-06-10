@@ -3,6 +3,7 @@ module.exports =
       title: 'Browser'
       type: 'boolean'
       default: true
+
       win32:
         IE:
           cmd: 'start iexplore '
@@ -22,6 +23,7 @@ module.exports =
           cmd: 'start safari '
         SafariPortable:
           cmd:  'start ' + atom.config.get('open-in-browsers.SafariPortable.path') + ' '
+
       win64:
         Edge:
           cmd: 'start microsoft-edge:'
@@ -51,6 +53,13 @@ module.exports =
           cmd: 'open -a "Safari" '
         Opera:
           cmd: 'open -a "Opera" '
+        ChromePortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.ChromePortablePath') + ' '
+        FirefoxPortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.FirefoxPortable.path') + ' '
+        SafariPortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.SafariPortable.path') + ' '
+
 
       linux:
         Chrome:
@@ -61,3 +70,9 @@ module.exports =
           cmd: 'safari '
         Opera:
           cmd: 'opera '
+        ChromePortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.ChromePortablePath') + ' '
+        FirefoxPortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.FirefoxPortable.path') + ' '
+        SafariPortable:
+          cmd:  'open -a ' + atom.config.get('open-in-browsers.SafariPortable.path') + ' '

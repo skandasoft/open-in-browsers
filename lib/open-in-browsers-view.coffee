@@ -13,17 +13,8 @@ class OpenInBrowsersView extends View
       title = @[browser]?.attr?('title')
       @subscriptions.add atom.tooltips.add(@[browser],{title:title}) if title
 
-    atom.config.onDidChange 'open-in-browsers.LocalHost',(obj)=>
-      if obj.newValue
-        @children('sup').removeClass('hide')
-      else
-        @children('sup').addClass('hide')
-
   @content: (browsers = atom.config.get('open-in-browsers.browsers'))->
-    localhost = "localhost"
     browserClass = ''
-    unless atom.config.get('open-in-browsers.LocalHost')
-      localhost += " hide "
     pkgs = atom.packages.getAvailablePackageNames()
     @pp = !!~pkgs.indexOf('pp')
     @bp = !!~pkgs.indexOf('browser-plus')
@@ -33,7 +24,7 @@ class OpenInBrowsersView extends View
           continue if browser is 'BrowserPlus' and not @bp
           continue if browser is 'BrowserPlus' and @pp and browsers.length > 1
           if browser is 'BrowserPlus'
-            browserClass = "mega-octicon octicon-browser"
+            browserClass = "browser-plus-icon"
           else
             browserClass = "fa #{browser}"
           if @curBrowser is browser
@@ -51,7 +42,6 @@ class OpenInBrowsersView extends View
             title = browser
             @span title:"#{browser}", class:browserClass,'data-browser':"#{browser}", mousedown:'openBrowser',outlet:"#{browser}"
 
-      @sup class:localhost, "L"
 
   openBrowser: (evt,target,browser)->
     if browser
