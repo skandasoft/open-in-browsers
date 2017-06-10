@@ -1,7 +1,7 @@
 {
   "name": "open-in-browsers",
   "main": "./lib/open-in-browsers",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Open in IE/Chrome/Firefox/Opera",
   "keywords": [
     "open in browser",
@@ -26,7 +26,6 @@
         ">=0.0.0": "consumeAddPreview"
       }
     }
-
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
