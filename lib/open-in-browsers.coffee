@@ -208,7 +208,8 @@ module.exports = OpenInBrowsers =
     # Register command that toggles this view
     # @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:addBrowser': (target)=>
       # open input view for browser name/command/default
-
+    @subscriptions.add atom.commands.add 'atom-workspace', 'open-in-browsers:toggle': (target)=>
+      @openInBrowsersView.openBrowser(null,target)
     browsers = atom.config.get('open-in-browsers.browsers')
     pkgs = atom.packages.getAvailablePackageNames()
     for browser in browsers
